@@ -25,9 +25,9 @@ export default function Index() {
         <Card>
           <Heading tag="h2">Neue Liste hochladen</Heading>
           <form onSubmit={onSubmit}>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-3">
               <label htmlFor="file">Datei auswählen</label>
-              <input type="file" id="file" name="file" className="mb-2" />
+              <input type="file" id="file" name="file" className="mb-6" />
               <div>
                 <button
                   type="submit"
@@ -41,11 +41,12 @@ export default function Index() {
         </Card>
       </Section>
       <Navigation>
-        <Link textDecoration="none" href="/course">
-          Zurück zur Übersicht
-        </Link>
         <Link textDecoration="none" href="/">
-          Zurück zur Startseite
+          Startseite
+        </Link>
+        <span>{'‣'}</span>
+        <Link textDecoration="none" href="/course">
+          Kurse
         </Link>
       </Navigation>
     </Container>
