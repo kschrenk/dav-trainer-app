@@ -1,2 +1,10 @@
 ### Get api
 GET http://localhost:3000/api
+
+### Post api
+POST http://localhost:3000/api/file/upload
+content-type: application/json
+
+{
+    "name": "some filename"
+}
