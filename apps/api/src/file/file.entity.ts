@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { AfterInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class File {
@@ -6,5 +6,31 @@ export class File {
   id: number;
 
   @Column()
-  name: string;
+  fieldname: string;
+
+  @Column()
+  originalname: string;
+
+  @Column()
+  encoding: string;
+
+  @Column()
+  mimetype: string;
+
+  @Column()
+  destination: string;
+
+  @Column()
+  filename: string;
+
+  @Column()
+  path: string;
+
+  @Column()
+  size: number;
+
+  @AfterInsert()
+  logInsert() {
+    console.log('File created: ', this.path);
+  }
 }

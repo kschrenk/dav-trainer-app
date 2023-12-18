@@ -40,6 +40,9 @@ Thumbs.db
 
 .nx/cache
 
+# Nest
+apps/api/public/uploads/
+
 # Next.js
 .next
 db.sqlite

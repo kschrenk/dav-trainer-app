@@ -7,15 +7,29 @@ import { Container, Heading } from '../../../shared-ui';
 import { Navigation } from '../../../components';
 
 export default function Index() {
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const data = Object.fromEntries((formData as any).entries());
-    console.log(data);
+    console.log('🚀 ~ file: page.tsx:14 ~ onSubmit ~ formData:', formData);
 
-    // TODO: Implement upload
+    const resp = await fetch('http://localhost:3000/api/file/upload', {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (resp.status === 201) {
+      alert('Upload erfolgreich');
+    } else {
+      const jsonResponse: {
+        error: string;
+        message: string;
+        statusCode: number;
+      } = await resp.json();
+      alert(
+        `Error: ${jsonResponse.error} / Message: ${jsonResponse.message}/ Status: ${jsonResponse.statusCode}}`
+      );
+    }
   };
 
   return (
