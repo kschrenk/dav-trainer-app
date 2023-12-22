@@ -1,4 +1,7 @@
 import './global.css';
+import { Heading } from '../shared-ui/Typography/Heading';
+import { Container } from '../shared-ui';
+import Link from 'next/link';
 
 export const metadata = {
   title: 'Welcome to client',
@@ -13,7 +16,14 @@ export default function RootLayout({
   return (
     <html lang="de">
       <body>
-        <main className="my-8">{children}</main>
+        <main className="my-8">
+          <Container>
+            <Link href={'/'}>
+              <Heading tag="h1">DAV</Heading>
+            </Link>
+          </Container>
+          {children}
+        </main>
       </body>
     </html>
   );

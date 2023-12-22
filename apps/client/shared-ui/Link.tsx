@@ -2,6 +2,11 @@ import NextLink from 'next/link';
 import type { FC } from 'react';
 import { Children } from '../types';
 
+type LinkProps = Children & {
+  href: string;
+  textDecoration?: 'underline' | 'none';
+};
+
 const stylesDefault = ['hover:underline'];
 const stylesUnderline = [
   'underline',
@@ -12,9 +17,11 @@ const isUnderline = (textDecoration: string | undefined) => {
   return textDecoration === 'underline';
 };
 
-export const Link: FC<
-  Children & { href: string; textDecoration?: 'underline' | 'none' }
-> = ({ children, href, textDecoration = 'none' }) => {
+export const Link: FC<LinkProps> = ({
+  children,
+  href,
+  textDecoration = 'none',
+}) => {
   return (
     <NextLink
       href={href}

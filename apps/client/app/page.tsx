@@ -1,17 +1,16 @@
-import { Container, Link } from '../shared-ui';
-import { Card } from '../shared-ui/Card';
-import { Section } from '../shared-ui/Section';
+import { Container, Heading } from '../shared-ui';
+import { CardLink, Section } from '../shared-ui';
 
 export default async function Index() {
   return (
     <Container>
       <Section>
-        <Card>
-          <h2 className="font-bold text-lg mb-4">Kurse</h2>
-          <Link textDecoration="underline" href={'/course'}>
-            Zur Übersicht
-          </Link>
-        </Card>
+        <div className="grid grid-cols-2 gap-4">
+          <CardLink>
+            <Heading tag="h2">Kurse</Heading>
+            <CardLink.Link href="/course">Zur Übersicht</CardLink.Link>
+          </CardLink>
+        </div>
       </Section>
     </Container>
   );

@@ -1,6 +1,9 @@
 import {
   Controller,
+  Delete,
   FileTypeValidator,
+  Get,
+  Param,
   ParseFilePipe,
   Post,
   UploadedFile,
@@ -11,6 +14,10 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
 import { extname } from 'path';
 import { diskStorage } from 'multer';
+import { unlink } from 'fs';
+import { promisify } from 'util';
+
+const unlinkAsync = promisify(unlink);
 
 const storage = diskStorage({
   destination: './apps/api/public/uploads',
@@ -29,9 +36,14 @@ const storage = diskStorage({
 export class FileController {
   constructor(private fileService: FileService) {}
 
+  @Get()
+  async findAll() {
+    return this.fileService.findAll();
+  }
+
   @Post('/upload')
   @UseInterceptors(FileInterceptor('file', { storage }))
-  upload(
+  async upload(
     @UploadedFile(
       new ParseFilePipe({
         validators: [
@@ -43,6 +55,22 @@ export class FileController {
     )
     file: Express.Multer.File
   ) {
-    this.fileService.create(file);
+    const data = await this.fileService.create(file);
+
+    return {
+      message: 'File uploaded successfully',
+      data,
+    };
+  }
+
+  @Delete('/:id')
+  async remove(@Param('id') id: string) {
+    const { path } = await this.fileService.findOne(parseInt(id));
+
+    await this.fileService.remove(parseInt(id));
+    await unlinkAsync(path);
+    return {
+      message: 'File deleted successfully',
+    };
   }
 }

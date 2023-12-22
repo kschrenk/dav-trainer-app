@@ -1,6 +1,9 @@
 ### Get api
 GET http://localhost:3000/api
 
+### GET files
+GET http://localhost:3000/api/file
+
 ### Post api
 POST http://localhost:3000/api/file/upload
 content-type: application/json
@@ -8,3 +11,6 @@ content-type: application/json
 {
     "name": "some filename"
 }
+
+### Delete file
+DELETE http://localhost:3000/api/file/1

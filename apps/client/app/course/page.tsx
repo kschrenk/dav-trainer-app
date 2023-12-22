@@ -1,8 +1,6 @@
 import { Card } from '../../shared-ui/Card';
 import { Section } from '../../shared-ui/Section';
-import { Link } from '../../shared-ui/Link';
-import { Container } from '../../shared-ui';
-import { Navigation } from '../../components';
+import { Link, Container } from '../../shared-ui';
 
 export default async function Index() {
   return (
@@ -21,9 +19,6 @@ export default async function Index() {
           {/* @TODO: Filter implementieren */}
         </Card>
       </Section>
-      <Navigation>
-        <Link href="/">Startseite</Link>
-      </Navigation>
     </Container>
   );
 }
