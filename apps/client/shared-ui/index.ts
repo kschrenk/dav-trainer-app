@@ -5,3 +5,4 @@ export { CardLink } from './CardLink';
 export { Container } from './Container';
 export { Heading } from './Typography';
 export { ArrowPath } from './Icons';
+export { Button } from './Button';
