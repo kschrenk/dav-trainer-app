@@ -1,7 +1,10 @@
 import { Section } from '../../../shared-ui/Section';
 import { Card, Container, Heading } from '../../../shared-ui';
-import { IUploadedFile, FileUpload } from './file-upload';
-import { FileDelete } from './file-delete';
+import {
+  IUploadedFile,
+  FileUpload,
+} from '../../../components/file-rest/file-upload';
+import { FileDelete } from '../../../components/file-rest/file-delete';
 import { revalidateTag } from 'next/cache';
 
 const TAG_FILES = 'files';

@@ -1,6 +1,6 @@
 'use client';
 
-import { Trash } from '../../../shared-ui/Icons';
+import { Trash } from '../../shared-ui/Icons';
 import { FC } from 'react';
 
 type FileDeleteProps = {

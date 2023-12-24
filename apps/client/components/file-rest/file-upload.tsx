@@ -1,8 +1,8 @@
 'use client';
 
-import { Section } from '../../../shared-ui/Section';
-import { ArrowPath, Button, Card, Heading } from '../../../shared-ui';
-import { FC, useRef, useState } from 'react';
+import { Section } from '../../shared-ui/Section';
+import { ArrowPath, Button, Card, Heading } from '../../shared-ui';
+import { ChangeEvent, FC, FormEvent, useState } from 'react';
 
 export interface IUploadedFile {
   id: number;
@@ -20,9 +20,18 @@ type FileUploadProps = {
 const FileUpload: FC<FileUploadProps> = ({ onFileUploaded }) => {
   const [uploadedFile, setUploadedFile] = useState<IUploadedFile | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const ref = useRef<HTMLInputElement>(null);
+  const [fileSelected, setFileSelected] = useState(false);
 
-  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const onFileSelected = (event: ChangeEvent<HTMLInputElement>) => {
+    const { files } = event.target;
+    if (files && files.length > 0) {
+      setFileSelected(true);
+    } else {
+      setFileSelected(false);
+    }
+  };
+
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
     const form = event.currentTarget;
@@ -64,17 +73,14 @@ const FileUpload: FC<FileUploadProps> = ({ onFileUploaded }) => {
               <div className="flex flex-col gap-3">
                 <label htmlFor="file">Datei auswählen</label>
                 <input
-                  ref={ref}
                   type="file"
                   id="file"
                   name="file"
                   className="mb-6"
+                  onChange={onFileSelected}
                 />
                 <div>
-                  <Button
-                    type="submit"
-                    disabled={isLoading || ref?.current?.files?.length === 0}
-                  >
+                  <Button type="submit" disabled={isLoading || !fileSelected}>
                     <span className="flex">
                       {isLoading && (
                         <ArrowPath className="animate-spin mr-2 -ml-2" />
