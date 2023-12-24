@@ -39,7 +39,7 @@ export default async function Index() {
               <li key={file.filename}>
                 <div className="flex justify-between">
                   <span>{file.originalname}</span>
-                  <FileDelete id={file.id} />
+                  <FileDelete id={file.id} onFileDeleted={reloadFiles} />
                 </div>
               </li>
             ))}
