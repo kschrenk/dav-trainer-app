@@ -78,6 +78,7 @@ const FileUpload: FC<FileUploadProps> = ({ onFileUploaded }) => {
                   name="file"
                   className="mb-6"
                   onChange={onFileSelected}
+                  accept=".xlsx"
                 />
                 <div>
                   <Button type="submit" disabled={isLoading || !fileSelected}>

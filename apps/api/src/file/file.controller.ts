@@ -3,6 +3,8 @@ import {
   Delete,
   FileTypeValidator,
   Get,
+  HttpCode,
+  NotFoundException,
   Param,
   ParseFilePipe,
   Post,
@@ -16,6 +18,8 @@ import { extname } from 'path';
 import { diskStorage } from 'multer';
 import { unlink } from 'fs';
 import { promisify } from 'util';
+import { ConverterService } from '../converter/converter.service';
+import { CourseService } from '../course/course.service';
 
 const unlinkAsync = promisify(unlink);
 
@@ -34,7 +38,11 @@ const storage = diskStorage({
 
 @Controller('file')
 export class FileController {
-  constructor(private fileService: FileService) {}
+  constructor(
+    private fileService: FileService,
+    private converterService: ConverterService,
+    private courseService: CourseService
+  ) {}
 
   @Get()
   async findAll() {
@@ -48,7 +56,8 @@ export class FileController {
       new ParseFilePipe({
         validators: [
           new FileTypeValidator({
-            fileType: 'application/vnd.ms-excel',
+            fileType:
+              'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
           }),
         ],
       })
@@ -61,6 +70,19 @@ export class FileController {
       message: 'File uploaded successfully',
       data,
     };
+  }
+
+  @Post('/:id/process')
+  @HttpCode(200)
+  async process(@Param('id') id: string) {
+    const file = await this.fileService.findOne(parseInt(id));
+
+    if (!file) {
+      throw new NotFoundException(`File #${id} not found`);
+    }
+
+    const courseList = await this.converterService.convertFileToJSON(file);
+    await this.courseService.createFromJSON(courseList);
   }
 
   @Delete('/:id')

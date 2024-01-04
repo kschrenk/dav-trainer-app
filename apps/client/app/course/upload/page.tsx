@@ -3,8 +3,8 @@ import { Card, Container, Heading } from '../../../shared-ui';
 import {
   IUploadedFile,
   FileUpload,
-} from '../../../components/file-rest/file-upload';
-import { FileDelete } from '../../../components/file-rest/file-delete';
+} from '../../../components/file/file-upload';
+import { FileDelete } from '../../../components/file/file-delete';
 import { revalidateTag } from 'next/cache';
 
 const TAG_FILES = 'files';
@@ -41,7 +41,7 @@ export default async function Index() {
             {files?.map((file) => (
               <li key={file.filename}>
                 <div className="flex justify-between">
-                  <span>{file.originalname}</span>
+                  <span>{`${file.id} ${file.originalname}`}</span>
                   <FileDelete id={file.id} onFileDeleted={reloadFiles} />
                 </div>
               </li>

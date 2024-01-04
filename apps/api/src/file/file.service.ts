@@ -2,11 +2,13 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { File } from './file.entity';
+import { CourseService } from '../course/course.service';
 
 @Injectable()
 export class FileService {
   constructor(
-    @InjectRepository(File) private readonly fileRepository: Repository<File>
+    @InjectRepository(File) private readonly fileRepository: Repository<File>,
+    private CourseService: CourseService
   ) {}
 
   async create(file: Express.Multer.File) {
@@ -29,4 +31,6 @@ export class FileService {
     }
     return await this.fileRepository.delete(id);
   }
+
+  async createCourseFromJSON() {}
 }
