@@ -2,6 +2,8 @@ import { Card } from '../../shared-ui/Card';
 import { Section } from '../../shared-ui/Section';
 import { Link, Container } from '../../shared-ui';
 import { CourseOverview } from '../../components/course/CourseOverview';
+import { getCourses } from '../../lib/course';
+import { getCategories } from '../../lib/category';
 
 // @TODO: Find a way to get the types from the API
 export type Course = {
@@ -18,24 +20,6 @@ export type Course = {
   travelDescription: string;
   category: string;
 };
-
-async function getCourses(): Promise<Course[]> {
-  // @TODO: Put base url into env
-  const response = await fetch('http://localhost:3000/api/course');
-  return response.json();
-}
-
-// @TODO: Make it real
-async function getCategories() {
-  // const response = await fetch('http://localhost:3000/api/category');
-  // return response.json();
-
-  return [
-    { id: '1', name: 'sportklettern' },
-    { id: '2', name: 'winter-alpin' },
-    { id: '3', name: 'skischule' },
-  ];
-}
 
 export default async function Index() {
   const courses = await getCourses();

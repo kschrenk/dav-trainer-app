@@ -8,10 +8,15 @@ import { FileProcess } from './file-process';
 
 type FileUploadProps = {
   onFileUploaded?: () => void;
+  refetchCourses: () => void;
   files: IUploadedFile[];
 };
 
-const FileUpload: FC<FileUploadProps> = ({ onFileUploaded, files }) => {
+const FileUpload: FC<FileUploadProps> = ({
+  refetchCourses,
+  onFileUploaded,
+  files,
+}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [fileSelected, setFileSelected] = useState(false);
 
@@ -48,6 +53,7 @@ const FileUpload: FC<FileUploadProps> = ({ onFileUploaded, files }) => {
       alert(jsonResponse.message);
       onFileUploaded && onFileUploaded();
       setIsLoading(false);
+      (document.getElementById('file') as HTMLInputElement).value = '';
     } else {
       alert(
         `Error: ${jsonResponse.error} / Message: ${jsonResponse.message}/ Status: ${jsonResponse.statusCode}}`
@@ -91,7 +97,7 @@ const FileUpload: FC<FileUploadProps> = ({ onFileUploaded, files }) => {
         </Card>
         <Card>
           <Heading tag="h2">Liste übertragen</Heading>
-          <FileProcess files={files} />
+          <FileProcess files={files} onFileProcessed={refetchCourses} />
         </Card>
       </div>
     </Section>

@@ -5,9 +5,10 @@ import { Button } from '../../shared-ui';
 
 type FileProcessProps = {
   files: IUploadedFile[];
+  onFileProcessed: () => void;
 };
 
-const FileProcess: FC<FileProcessProps> = ({ files }) => {
+const FileProcess: FC<FileProcessProps> = ({ files, onFileProcessed }) => {
   const [selectedFile, setSelectedFile] = useState<string | null>(null);
 
   const handleFileSelected = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -25,6 +26,7 @@ const FileProcess: FC<FileProcessProps> = ({ files }) => {
     alert(data.message);
     if (!data.error) {
       setSelectedFile(null);
+      onFileProcessed();
     }
   };
 

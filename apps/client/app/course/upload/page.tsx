@@ -2,35 +2,30 @@ import { Section } from '../../../shared-ui/Section';
 import { Card, Container, Heading } from '../../../shared-ui';
 import { FileUpload } from '../../../components/file/file-upload';
 import { FileDelete } from '../../../components/file/file-delete';
+import { TAG_FILES, getFiles } from '../../../lib/file';
 import { revalidateTag } from 'next/cache';
-import { IUploadedFile } from '../../../components/file/types';
-
-const TAG_FILES = 'files';
-
-// @TODO move to lib/file
-async function getFiles(): Promise<IUploadedFile[]> {
-  const res = await fetch('http://localhost:3000/api/file', {
-    next: { tags: [TAG_FILES] },
-  });
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
-  }
-
-  return res.json();
-}
+import { TAG_COURSES } from '../../../lib/course';
 
 export default async function Index() {
   const files = await getFiles();
 
-  async function reloadFiles() {
+  async function refetchFiles() {
     'use server';
     revalidateTag(TAG_FILES);
   }
 
+  async function refetchCourses() {
+    'use server';
+    revalidateTag(TAG_COURSES);
+  }
+
   return (
     <Container>
-      <FileUpload onFileUploaded={reloadFiles} files={files} />
+      <FileUpload
+        refetchCourses={refetchCourses}
+        onFileUploaded={refetchFiles}
+        files={files}
+      />
       <Section>
         <Card>
           <Heading tag="h2">Alle hochgeladenen Dateien</Heading>
@@ -39,7 +34,7 @@ export default async function Index() {
               <li key={file.filename}>
                 <div className="flex justify-between">
                   <span>{`${file.id} ${file.originalname}`}</span>
-                  <FileDelete id={file.id} onFileDeleted={reloadFiles} />
+                  <FileDelete id={file.id} onFileDeleted={refetchFiles} />
                 </div>
               </li>
             ))}
