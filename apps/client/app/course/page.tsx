@@ -5,22 +5,6 @@ import { CourseOverview } from '../../components/course/CourseOverview';
 import { getCourses } from '../../lib/course';
 import { getCategories } from '../../lib/category';
 
-// @TODO: Find a way to get the types from the API
-export type Course = {
-  bookingCode: string;
-  startDate: string;
-  dates: string;
-  time: string;
-  age: string;
-  title: string;
-  type: string;
-  level: string;
-  quarters: string;
-  location: string;
-  travelDescription: string;
-  category: string;
-};
-
 export default async function Index() {
   const courses = await getCourses();
   const categories = await getCategories();

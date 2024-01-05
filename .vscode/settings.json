@@ -1,4 +1,10 @@
 {
   "editor.formatOnSave": true,
-  "typescript.preferences.importModuleSpecifier": "relative"
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "terminal.integrated.profiles.osx": {
+    "zsh": {
+      "path": "zsh",
+      "args": ["-i"]
+    }
+  }
 }

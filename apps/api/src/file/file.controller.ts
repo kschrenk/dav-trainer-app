@@ -19,6 +19,8 @@ import { diskStorage } from 'multer';
 import { unlink } from 'fs';
 import { promisify } from 'util';
 import { CourseService } from '../course/course.service';
+import { ApiResponse } from '@nestjs/swagger';
+import { File } from './file.entity';
 
 const unlinkAsync = promisify(unlink);
 
@@ -43,6 +45,7 @@ export class FileController {
   ) {}
 
   @Get()
+  @ApiResponse({ status: 200, type: [File] })
   async findAll() {
     return this.fileService.findAll();
   }

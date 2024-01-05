@@ -1,10 +1,10 @@
 'use client';
 
-import { Course } from '../../app/course/page';
 import { useState, type FC } from 'react';
 import { CardCourse } from './CardCourse/CardCourse';
 import { CourseFilter } from './CourseFilter';
 import { Heading } from '../../shared-ui';
+import { Course } from '../../types';
 
 type CourseOverviewProps = {
   courses: Course[];

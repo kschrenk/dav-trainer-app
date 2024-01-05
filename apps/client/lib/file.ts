@@ -1,8 +1,8 @@
-import { IUploadedFile } from '../components/file/types';
+import type { File } from '../types';
 
 export const TAG_FILES = 'files';
 
-export async function getFiles(): Promise<IUploadedFile[]> {
+export async function getFiles(): Promise<File[]> {
   const res = await fetch('http://localhost:3000/api/file', {
     next: { tags: [TAG_FILES] },
   });

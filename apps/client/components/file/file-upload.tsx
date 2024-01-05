@@ -3,13 +3,13 @@
 import { Section } from '../../shared-ui/Section';
 import { ArrowPath, Button, Card, Heading, Link } from '../../shared-ui';
 import { ChangeEvent, FC, FormEvent, useState } from 'react';
-import { IUploadedFile } from './types';
 import { FileProcess } from './file-process';
+import { File } from '../../types';
 
 type FileUploadProps = {
   onFileUploaded?: () => void;
   refetchCourses: () => void;
-  files: IUploadedFile[];
+  files: File[];
 };
 
 const FileUpload: FC<FileUploadProps> = ({
@@ -42,7 +42,7 @@ const FileUpload: FC<FileUploadProps> = ({
     });
 
     type JSONResponse = {
-      data?: IUploadedFile;
+      data?: File;
       message?: string;
       error?: Array<{ message: string }>;
       statusCode: number;

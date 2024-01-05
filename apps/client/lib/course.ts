@@ -1,4 +1,4 @@
-import { Course } from '../app/course/page';
+import { Course } from '../types';
 
 export const TAG_COURSES = 'courses';
 
