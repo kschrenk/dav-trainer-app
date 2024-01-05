@@ -10,14 +10,14 @@ import { Course } from './course/course.entity';
 
 @Module({
   imports: [
-    FileModule,
-    CourseModule,
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'db.sqlite',
       entities: [File, Course],
       synchronize: true,
     }),
+    FileModule,
+    CourseModule,
   ],
   controllers: [AppController],
   providers: [AppService],

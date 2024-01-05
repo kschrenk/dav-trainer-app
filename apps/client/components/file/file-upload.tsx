@@ -1,27 +1,21 @@
 'use client';
 
 import { Section } from '../../shared-ui/Section';
-import { ArrowPath, Button, Card, Heading } from '../../shared-ui';
+import { ArrowPath, Button, Card, Heading, Link } from '../../shared-ui';
 import { ChangeEvent, FC, FormEvent, useState } from 'react';
-
-export interface IUploadedFile {
-  id: number;
-  fieldname: string;
-  originalname: string;
-  size: number;
-  filename: string;
-  path: string;
-}
+import { IUploadedFile } from './types';
+import { FileProcess } from './file-process';
 
 type FileUploadProps = {
   onFileUploaded?: () => void;
+  files: IUploadedFile[];
 };
 
-const FileUpload: FC<FileUploadProps> = ({ onFileUploaded }) => {
-  const [uploadedFile, setUploadedFile] = useState<IUploadedFile | null>(null);
+const FileUpload: FC<FileUploadProps> = ({ onFileUploaded, files }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [fileSelected, setFileSelected] = useState(false);
 
+  // @TODO move to lib/file
   const onFileSelected = (event: ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;
     if (files && files.length > 0) {
@@ -31,6 +25,7 @@ const FileUpload: FC<FileUploadProps> = ({ onFileUploaded }) => {
     }
   };
 
+  // @TODO move to lib/file
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
@@ -51,7 +46,6 @@ const FileUpload: FC<FileUploadProps> = ({ onFileUploaded }) => {
 
     if (resp.ok) {
       alert(jsonResponse.message);
-      setUploadedFile(jsonResponse.data ?? null);
       onFileUploaded && onFileUploaded();
       setIsLoading(false);
     } else {
@@ -65,50 +59,41 @@ const FileUpload: FC<FileUploadProps> = ({ onFileUploaded }) => {
   return (
     <Section>
       <Heading tag="h1">Kurse</Heading>
-      <Card>
-        <div className="grid grid-cols-2">
-          <div>
-            <Heading tag="h2">Neue Liste hochladen</Heading>
-            <form onSubmit={onSubmit}>
-              <div className="flex flex-col gap-3">
-                <label htmlFor="file">Datei auswählen</label>
-                <input
-                  type="file"
-                  id="file"
-                  name="file"
-                  className="mb-6"
-                  onChange={onFileSelected}
-                  accept=".xlsx"
-                />
-                <div>
-                  <Button type="submit" disabled={isLoading || !fileSelected}>
-                    <span className="flex">
-                      {isLoading && (
-                        <ArrowPath className="animate-spin mr-2 -ml-2" />
-                      )}
-                      Hochladen
-                    </span>
-                  </Button>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div>
-            <Heading tag="h2">Hochgeladene Datei</Heading>
-            {uploadedFile && (
+      <span className="block mb-4">
+        <Link href={'/course'}>Zurück</Link>
+      </span>
+      <div className="grid grid-cols-2 gap-4">
+        <Card>
+          <Heading tag="h2">Neue Liste hochladen</Heading>
+          <form onSubmit={onSubmit}>
+            <div className="flex flex-col gap-3">
+              <label htmlFor="file">Datei auswählen</label>
+              <input
+                type="file"
+                id="file"
+                name="file"
+                className="mb-6"
+                onChange={onFileSelected}
+                accept=".xlsx"
+              />
               <div>
-                <p>{uploadedFile.originalname}</p>
-                <p>{uploadedFile.size}</p>
-                <p>{uploadedFile.filename}</p>
-                <p className="mb-4">{uploadedFile.path}</p>
-                <Button onClick={() => console.log('revalidate cache')}>
-                  Jetzt speichern?
+                <Button type="submit" disabled={isLoading || !fileSelected}>
+                  <span className="flex">
+                    {isLoading && (
+                      <ArrowPath className="animate-spin mr-2 -ml-2" />
+                    )}
+                    Hochladen
+                  </span>
                 </Button>
               </div>
-            )}
-          </div>
-        </div>
-      </Card>
+            </div>
+          </form>
+        </Card>
+        <Card>
+          <Heading tag="h2">Liste übertragen</Heading>
+          <FileProcess files={files} />
+        </Card>
+      </div>
     </Section>
   );
 };

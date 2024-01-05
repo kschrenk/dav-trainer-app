@@ -18,7 +18,6 @@ import { extname } from 'path';
 import { diskStorage } from 'multer';
 import { unlink } from 'fs';
 import { promisify } from 'util';
-import { ConverterService } from '../converter/converter.service';
 import { CourseService } from '../course/course.service';
 
 const unlinkAsync = promisify(unlink);
@@ -40,7 +39,6 @@ const storage = diskStorage({
 export class FileController {
   constructor(
     private fileService: FileService,
-    private converterService: ConverterService,
     private courseService: CourseService
   ) {}
 
@@ -81,8 +79,16 @@ export class FileController {
       throw new NotFoundException(`File #${id} not found`);
     }
 
-    const courseList = await this.converterService.convertFileToJSON(file);
-    await this.courseService.createFromJSON(courseList);
+    try {
+      await this.courseService.createFromFile(file);
+
+      return {
+        error: false,
+        message: 'File processed successfully',
+      };
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   @Delete('/:id')

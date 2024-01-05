@@ -1,5 +1,4 @@
 import './global.css';
-import { Heading } from '../shared-ui/Typography/Heading';
 import { Container } from '../shared-ui';
 import Link from 'next/link';
 
@@ -16,12 +15,14 @@ export default function RootLayout({
   return (
     <html lang="de">
       <body>
-        <main className="my-8">
-          <Container>
-            <Link href={'/'}>
-              <Heading tag="h1">DAV</Heading>
-            </Link>
-          </Container>
+        <main>
+          <div className="py-6 mb-6 border-b">
+            <Container>
+              <Link href={'/'}>
+                <h1>DAV</h1>
+              </Link>
+            </Container>
+          </div>
           {children}
         </main>
       </body>

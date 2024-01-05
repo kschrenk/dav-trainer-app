@@ -4,10 +4,9 @@ import { FileController } from './file.controller';
 import { FileService } from './file.service';
 import { File } from './file.entity';
 import { CourseModule } from '../course/course.module';
-import { ConverterModule } from '../converter/converter.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([File]), CourseModule, ConverterModule],
+  imports: [TypeOrmModule.forFeature([File]), CourseModule],
   controllers: [FileController],
   providers: [FileService],
 })

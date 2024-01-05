@@ -21,9 +21,6 @@ export class Course {
   title: string;
 
   @Column()
-  area: string;
-
-  @Column()
   type: string;
 
   @Column()
@@ -37,4 +34,7 @@ export class Course {
 
   @Column()
   travelDescription: string;
+
+  @Column()
+  category: string;
 }
