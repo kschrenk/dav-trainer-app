@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "dev": "nx run-many -t serve",
     "dev:client": "nx run client:serve",
     "dev:api": "nx run api:serve",
     "db:reset": "source trainer.sh; resetDatabase",
