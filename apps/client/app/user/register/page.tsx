@@ -1,13 +1,29 @@
 'use client';
 
-import { FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
 import { Form, Input, SubmitButton } from '../../../components/Form';
 import { Container, Heading, Section } from '../../../shared-ui';
 
 export default function RegisterPage() {
-  const register = (event: FormEvent<HTMLFormElement>) => {
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [password, setPassword] = useState('');
+
+  const register = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // const formData = new FormData(event.currentTarget);
+    const userData = { email, name, lastname, password };
+
+    const response = await fetch('http://localhost:3000/api/auth/signup', {
+      method: 'POST',
+      body: JSON.stringify(userData),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const data = await response.json();
+    console.log('🚀 ~ file: page.tsx:16 ~ register ~ data:', data);
   };
 
   return (
@@ -24,16 +40,36 @@ export default function RegisterPage() {
               required
               placeholder="musterman@email.de"
               autoComplete="username"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
             >
               E-Mail
             </Input>
-            <Input type="text" placeholder={'Max'} required>
+            <Input
+              type="text"
+              placeholder={'Max'}
+              required
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+            >
               Vorname
             </Input>
-            <Input type="text" placeholder={'Mustermann'} required>
+            <Input
+              type="text"
+              placeholder={'Mustermann'}
+              required
+              value={lastname}
+              onChange={(event) => setLastname(event.target.value)}
+            >
               Nachname
             </Input>
-            <Input type="password" autoComplete="new-password" required>
+            <Input
+              type="password"
+              autoComplete="new-password"
+              required
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+            >
               Passwort
             </Input>
             <Input type="password" autoComplete="new-password" required>

@@ -1,9 +1,11 @@
-import type { FC, ReactNode } from 'react';
+import type { ChangeEvent, FC, ReactNode } from 'react';
 import { Children } from '../../types';
 
 type BaseProps = {
   placeholder?: string;
   required?: boolean;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  value?: string;
 };
 
 type EmailProps = {
