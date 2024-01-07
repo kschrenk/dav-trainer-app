@@ -5,8 +5,14 @@
 
 
 export interface paths {
-  "/api": {
-    get: operations["getData"];
+  "/api/auth/signup": {
+    post: operations["register"];
+  };
+  "/api/auth/login": {
+    post: operations["login"];
+  };
+  "/api/profile": {
+    get: operations["getProfile"];
   };
   "/api/file": {
     get: operations["findAll"];
@@ -29,6 +35,7 @@ export type webhooks = Record<string, never>;
 
 export interface components {
   schemas: {
+    CreateUserDto: Record<string, never>;
     File: {
       id: number;
       fieldname: string;
@@ -83,7 +90,26 @@ export type external = Record<string, never>;
 
 export interface operations {
 
-  getData: {
+  register: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CreateUserDto"];
+      };
+    };
+    responses: {
+      201: {
+        content: never;
+      };
+    };
+  };
+  login: {
+    responses: {
+      201: {
+        content: never;
+      };
+    };
+  };
+  getProfile: {
     responses: {
       200: {
         content: never;
