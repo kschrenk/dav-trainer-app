@@ -28,10 +28,16 @@ GET http://localhost:3000/api/course
 
 ### GET profile
 GET http://localhost:3000/api/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG4iLCJzdWIiOjEsImlhdCI6MTcwNDYyODMyNCwiZXhwIjoxNzA0NjI4Mzg0fQ.b-HYQxIP0WkOpGK0NHLIjBt3xYDz-rDZKWuIrfQjp6A
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyaW5hQGVtYWlsLmNvbSIsInV1aWQiOiI5OWNmYjE1MC04MGU4LTQyNzctYWNjOC04YTlkN2Q5NjM2MDMiLCJpYXQiOjE3MDQ2NTA2NTYsImV4cCI6MTcwNzI0MjY1Nn0.mnrY4rW3yTQz1zKFR6sGiwrMrqr1KsAapPwMT6DI5HM
 
 ### POST login
 POST http://localhost:3000/api/auth/login
 content-type: application/json
 
-{"username": "john", "password": "changeme"}
+{"username": "arina@email.com", "password": "changeme"}
+
+### POST signup
+POST http://localhost:3000/api/auth/signup
+content-type: application/json
+
+{"email": "arina@email.com", "password": "changeme", "name": "Arina", "lastname": "Doe"}

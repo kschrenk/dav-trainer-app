@@ -8,14 +8,19 @@ import { Course } from './course/course.entity';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { AppController } from './app.controller';
+import { User } from './user/user.entity';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'db.sqlite',
-      entities: [File, Course],
+      entities: [File, Course, User],
       synchronize: true,
+    }),
+    ConfigModule.forRoot({
+      isGlobal: true,
     }),
     FileModule,
     CourseModule,

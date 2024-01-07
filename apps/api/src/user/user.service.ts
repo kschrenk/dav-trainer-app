@@ -1,25 +1,20 @@
 import { Injectable } from '@nestjs/common';
-
-// @TODO: This should be a real class/interface representing a user entity
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type User = any;
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User } from './user.entity';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Injectable()
 export class UserService {
-  private readonly users = [
-    {
-      userId: 1,
-      username: 'john',
-      password: 'changeme',
-    },
-    {
-      userId: 2,
-      username: 'maria',
-      password: 'guess',
-    },
-  ];
+  constructor(@InjectRepository(User) private repo: Repository<User>) {}
 
-  async findOne(username: string): Promise<User | undefined> {
-    return this.users.find((user) => user.username === username);
+  create(userData: CreateUserDto) {
+    const user = this.repo.create(userData);
+
+    return this.repo.save(user);
+  }
+
+  findOne(email: string) {
+    return this.repo.findOne({ where: { email } });
   }
 }
