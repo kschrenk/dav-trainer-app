@@ -5,6 +5,9 @@ import { FileModule } from './file/file.module';
 import { File } from './file/file.entity';
 import { CourseModule } from './course/course.module';
 import { Course } from './course/course.entity';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -16,8 +19,10 @@ import { Course } from './course/course.entity';
     }),
     FileModule,
     CourseModule,
+    AuthModule,
+    UserModule,
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [],
 })
 export class AppModule {}

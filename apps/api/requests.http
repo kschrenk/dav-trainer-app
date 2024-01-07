@@ -23,3 +23,15 @@ DELETE http://localhost:3000/api/file/1
 
 ### GET courses
 GET http://localhost:3000/api/course
+
+## Auth
+
+### GET profile
+GET http://localhost:3000/api/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG4iLCJzdWIiOjEsImlhdCI6MTcwNDYyODMyNCwiZXhwIjoxNzA0NjI4Mzg0fQ.b-HYQxIP0WkOpGK0NHLIjBt3xYDz-rDZKWuIrfQjp6A
+
+### POST login
+POST http://localhost:3000/api/auth/login
+content-type: application/json
+
+{"username": "john", "password": "changeme"}
