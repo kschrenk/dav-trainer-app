@@ -5,8 +5,6 @@ import {
   Request,
   Get,
   Body,
-  Res,
-  HttpStatus,
 } from '@nestjs/common';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { AuthService } from './auth/auth.service';
@@ -27,22 +25,8 @@ export class AppController {
   @UseGuards(LocalAuthGuard)
   @ApiResponse({ type: [UserDto] })
   @Post('auth/login')
-  async login(@Request() req, @Res() res) {
-    const { user } = req;
-    const { access_token } = await this.authService.login(user);
-
-    const expires = new Date();
-    expires.setDate(expires.getDate() + 30);
-
-    res.cookie('access_token', access_token, {
-      expires,
-      path: '/',
-      domain: 'localhost',
-    });
-
-    res.status(HttpStatus.OK);
-
-    return res.send(user);
+  async login(@Request() req) {
+    return this.authService.login(req.user);
   }
 
   @UseGuards(JwtAuthGuard)

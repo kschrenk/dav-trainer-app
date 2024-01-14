@@ -28,7 +28,7 @@ GET http://localhost:3000/api/course
 
 ### GET profile
 GET http://localhost:3000/api/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyaW5hQGVtYWlsLmNvbSIsInV1aWQiOiI5OWNmYjE1MC04MGU4LTQyNzctYWNjOC04YTlkN2Q5NjM2MDMiLCJpYXQiOjE3MDQ2NTA2NTYsImV4cCI6MTcwNzI0MjY1Nn0.mnrY4rW3yTQz1zKFR6sGiwrMrqr1KsAapPwMT6DI5HM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImtzQGVtYWlsLmNvbSIsInV1aWQiOiJjNWYwMjVmMi00NjM5LTRmZmYtOWVkYi1hYjdiODY4NzQ5OTkiLCJpYXQiOjE3MDUyNTQxMjIsImV4cCI6MTcwNzg0NjEyMn0.nxDy-rRlQvl2b61lpPIGwlMk5hE6eK7GpTAIMFzG3Wc
 
 ### POST login
 POST http://localhost:3000/api/auth/login

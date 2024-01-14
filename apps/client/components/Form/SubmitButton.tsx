@@ -3,7 +3,7 @@ import { Children } from '../../types';
 
 const SubmitButton: FC<Children> = ({ children }) => {
   return (
-    <div className="mt-4">
+    <div>
       <button
         type={'submit'}
         className="bg-primary text-white font-bold py-2 px-4 rounded"
