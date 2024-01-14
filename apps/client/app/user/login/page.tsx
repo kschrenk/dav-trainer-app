@@ -3,8 +3,10 @@
 import { FormEvent, useState } from 'react';
 import { Form, Input, SubmitButton } from '../../../components/Form';
 import { Container, Section } from '../../../shared-ui';
+import { User } from '../../../types';
 
 export default function LoginPage() {
+  const [user, setUser] = useState<User | null>(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -20,9 +22,9 @@ export default function LoginPage() {
       },
     });
 
-    const data = await response.json();
-    // {access_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6I…MzNn0.e74DoYfYTBhVmcnzEiYemMKzNjWzf_4I5V5aUBrOjJo'}
-    console.log('🚀 ~ file: page.tsx:16 ~ register ~ data:', data);
+    const data: User = await response.json();
+    setUser(data);
+    // @TODO: Cookie is not set correctly in browser
   };
 
   return (
@@ -53,6 +55,11 @@ export default function LoginPage() {
           </Form>
         </div>
       </Section>
+      {user ? (
+        <div>
+          <pre>{JSON.stringify(user)}</pre>
+        </div>
+      ) : null}
     </Container>
   );
 }

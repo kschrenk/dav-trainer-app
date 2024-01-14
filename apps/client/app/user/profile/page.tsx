@@ -6,6 +6,9 @@ export default function ProfilePage() {
       <Section>
         <div className="mb-12">
           <h1>Mein Profil</h1>
+          <div className="py-6">
+            <pre>Is user logged in?</pre>
+          </div>
         </div>
         <div className="flex gap-4">
           <Link href={'/user/login'}>Zum Login</Link>

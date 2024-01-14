@@ -36,6 +36,12 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     CreateUserDto: Record<string, never>;
+    UserDto: {
+      uuid: string;
+      email: string;
+      name: string;
+      lastname: string;
+    };
     File: {
       id: number;
       fieldname: string;
@@ -104,8 +110,10 @@ export interface operations {
   };
   login: {
     responses: {
-      201: {
-        content: never;
+      default: {
+        content: {
+          "application/json": components["schemas"]["UserDto"][];
+        };
       };
     };
   };

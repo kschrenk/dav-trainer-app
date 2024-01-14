@@ -34,10 +34,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyaW5hQ
 POST http://localhost:3000/api/auth/login
 content-type: application/json
 
-{"username": "arina@email.com", "password": "changeme"}
+{"username": "ks@email.com", "password": "password"}
 
 ### POST signup
 POST http://localhost:3000/api/auth/signup
 content-type: application/json
 
-{"email": "arina@email.com", "password": "changeme", "name": "Arina", "lastname": "Doe"}
+{"email": "ks@email.com", "password": "password", "name": "Kilian", "lastname": "Schrenk"}
