@@ -7,7 +7,8 @@
     "dev:client": "nx run client:serve",
     "dev:api": "nx run api:serve",
     "db:reset": "source trainer.sh; resetDatabase",
-    "generate:types": "openapi-typescript http://localhost:3000/api-json --output apps/client/types/api.generated.ts"
+    "generate:types": "openapi-typescript http://localhost:3000/api-json --output apps/client/types/api.generated.ts",
+    "build:client": "nx run client:build"
   },
   "private": true,
   "dependencies": {

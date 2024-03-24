@@ -1,10 +1,10 @@
 import { ChangeEvent, FC, useState } from 'react';
-import { IUploadedFile } from './types';
+import { File } from '../../types';
 import { processFile } from '../../lib/file';
 import { Button } from '../../shared-ui';
 
 type FileProcessProps = {
-  files: IUploadedFile[];
+  files: File[];
   onFileProcessed: () => void;
 };
 
